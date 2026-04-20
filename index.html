@@ -36,8 +36,30 @@ font-style: italic;
 font-size: 28px;
 letter-spacing: 1px;
 margin-bottom: 25px;
+backround: linear-gradient(45deg, #d4a5a5 20%, #ffc0cb 40%, #fff 80%, #d4a5a5 100%
+) ;
+  background-size: 200% auto; 
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: sparkle 3s linear infinite;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  @keyframes sparkle {
+    to { background-position: 200% center; }
 text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px
+      border-radius: 50%;
+    border: 3px solid #ffc0cb
+      box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+    object-fit: cover;
+    background-color: #fff;
 
 /* Ô tìm kiếm bo tròn, thắt nơ nhẹ nhàng */
 #searchBox {
@@ -135,6 +157,9 @@ box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 
 <div class="container">
 <h2>Giấy Ghi Chú Ước Nguyện</h2>
+  <div class="avatar-container">
+    <img src="https://i.pinimg.com/736x/ab/7e/31/ab7e31789b6336fd5a0fb08c7bc02ca2.jpg" alt="Avatar" class="avatar">
+  </div>
 <input type="text" id="searchBox" placeholder="Tôi yêu Ahn KeonHo..." oninput="handleInput()">
 <div id="suggestions"></div>
 
