@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tao Mệt Lắm Rồi</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; }
+.container { width: 100%; max-width: 600px; }
+h2 { color: #1a73e8; text-align: center; }
+#searchBox { width: 100%; padding: 15px; border: 2px solid #1a73e8; border-radius: 25px; font-size: 16px; outline: none; box-sizing: border-box; }
+#suggestions { background: white; border: 1px solid #ddd; border-top: none; max-height: 250px; overflow-y: auto; display: none; border-radius: 0 0 15px 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.suggestion-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 14px; }
+.suggestion-item:hover { background: #f1f3f4; }
+#answerCard { margin-top: 20px; padding: 20px; background: #fff; border-left: 5px solid #27ae60; border-radius: 8px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
+.ans-title { font-weight: bold; color: #27ae60; margin-bottom: 10px; }
+.ans-content { font-size: 16px; color: #202124; line-height: 1.6; }
+img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; border: 1px solid #ddd; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Giúp nó đi kìa mày>>></h2>
+<input type="text" id="searchBox" placeholder="Nhập từ khóa để giải cứu em cún..." oninput="handleInput()">
+<div id="suggestions"></div>
+
+<div id="answerCard">
+<div class="ans-title">ĐÁP ÁN:</div>
+<div id="finalAnswer" class="ans-content"></div>
+</div>
+</div>
+
+<script>
+const data = [
+{ q: "Câu lệnh nào sau đây là đúng?", a: "B. <a href='https://nxbgd.vn'>NXBGD</a>" },
+{ q: "Sau khi viết các trang web riêng lẻ, em muốn kết nối chúng để tạo ra một website. Em nên sử dụng loại đường dẫn nào để liên kết giữa các trang?", a: "B. Đường dẫn tương đối" },
+{ q: "Xét đoạn mã html sau: <p><a href='https://vne.edu.vn'>ĐHQGHN</a></p> Theo em, trong ví dụ này, 'ĐHQGHN' thể hiện:", a: "A. Đoạn văn bản của trang web chịu ảnh hưởng của thẻ <a>" },
+{ q: "Thẻ nào dưới đây để tạo liên kết trong trang web?", a: "B. <a>" },
+{ q: "Trong tệp index.html muốn tạo liên kết tới tệp info.html nằm trong thư mục thiết kế web...", a: "A. <a href='thiết kế web/info.html'>Liên kết tới trang info.html</a>" },
+{ q: "Thẻ nào sau đây được sử dụng để tạo một siêu liên kết trong HTML?", a: "A. <a>" },
+{ q: "Đâu không phải là một địa chỉ liên kết được đặt trong một siêu liên kết?", a: "D. img://fit/index.html" },
+{ q: "Khi nhấp chuột vào một siêu liên kết, theo mặc định, nội dung trang web sẽ hiển thị ở đâu?", a: "A. Trong cửa sổ trình duyệt hiện tại" },
+{ q: "Khi đặt một siêu liên kết vào một đoạn văn bản, đoạn văn bản sẽ có định dạng mặc định là gì?", a: "C. Gạch dưới và màu xanh" },
+{ q: "Để tạo một liên kết nội bộ trong cùng một trang web, thuộc tính nào sau đây được sử dụng?", a: "C. id" },
+{ q: "Phát biểu nào sau đây là không đúng với một thẻ liên kết html?", a: "A. Một thẻ liên kết có thể liên kết với một hoặc nhiều trang web khác" },
+{ q: "Trường hợp liên kết nào sau đây là liên kết ngoài?", a: "A. Liên kết từ một trang web tới một trang web khác trên Internet." },
+{ q: "Trong trường hợp trang web liên kết tới thuộc thư mục khác và ở mức trên, sử dụng kí tự nào?", a: "B. '../'." },
+{ q: "Phát biểu nào sau đây sai?", a: "C. Các tệp có phần mở rộng .txt là các siêu văn bản." },
+{ q: "Phát biểu nào sau đây đúng?", a: "B. Thuộc tính id được gọi là mã định danh đoạn." },
+{ q: "Các định dạng tệp tin ảnh nào có thể hiển thị bằng thẻ <img>?", a: "A. jpg, png, gif" },
+{ q: "Để nhúng trang web khác, sử dụng thuộc tính nào của thẻ <iframe>?", a: "A. src" },
+{ q: "Để nhúng trang web khác vào trang web hiện thời, sử dụng thẻ nào?", a: "C. <iframe>" },
+{ q: "Lệnh chân trời sáng tạo", a: "D. Nhúng trang web https://chantroisangtao.vn, chiều rộng 80%, cao 500px" },
+{ q: "Để nhúng trang web https://chantroisangtao.vn với kích thước 50%...", a: "Đáp án có trong ảnh: <br><img src='d4c79b8617f296accfe3.jpg'>" },
+{ q: "Khi sử dụng thẻ <img> để chèn ảnh, thuộc tính nào gán cho giá trị là đường dẫn?", a: "C. src" },
+{ q: "Thẻ nào sau đây chỉ có thẻ mở, không có thẻ đóng?", a: "A. <img>" },
+{ q: "Để chèn video vào trang web, thuộc tính nào sau đây bắt buộc phải khai báo?", a: "D. src" },
+{ q: "Nội dung nào dưới đây không đúng về ý nghĩa câu lệnh Hà Nội mùa thu", a: "C. Khi gặp lỗi không phát được video sẽ hiển thị thông báo lỗi" },
+{ q: "Nội dung nào dưới đây không đúng về thuộc tính controls của thẻ <video>?", a: "B. Là thuộc tính bắt buộc" },
+{ q: "Thành phần nào sau đây không có trong thẻ hiển thị ảnh của html?", a: "D. size" },
+{ q: "Thuộc tính nào dùng để hiển thị các nút điều khiển start, stop, âm lượng?", a: "B. controls" },
+{ q: "Thuộc tính nào sau đây không có trong thẻ hiển thị videos?", a: "C. source" },
+{ q: "Thuộc tính nào sau đây không có trong thẻ hiển thị âm thanh?", a: "B. width, height" }
+];
+
+const searchBox = document.getElementById('searchBox');
+const suggestions = document.getElementById('suggestions');
+const answerCard = document.getElementById('answerCard');
+const finalAnswer = document.getElementById('finalAnswer');
+
+function handleInput() {
+const val = searchBox.value.toLowerCase().trim();
+suggestions.innerHTML = '';
+answerCard.style.display = 'none';
+
+if (val === '') {
+suggestions.style.display = 'none';
+return;
+}
+
+const matches = data.filter(item => item.q.toLowerCase().includes(val));
+
+if (matches.length > 0) {
+suggestions.style.display = 'block';
+matches.forEach(item => {
+const div = document.createElement('div');
+div.className = 'suggestion-item';
+div.innerText = item.q;
+div.onclick = () => {
+searchBox.value = item.q;
+showResult(item.a);
+};
+suggestions.appendChild(div);
+if (val === item.q.toLowerCase()) {
+showResult(item.a);
+}
+});
+} else {
+suggestions.style.display = 'none';
+}
+}
+
+function showResult(ans) {
+suggestions.style.display = 'none';
+answerCard.style.display = 'block';
+finalAnswer.innerHTML = ans; // Dùng innerHTML để hiện được ảnh
+}
+</script>
+</body>
+</html>
