@@ -22,11 +22,11 @@ img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; borde
 
 <div class="container">
 <h2>Giấy Ghi Chú Ước Nguyện</h2>
-<input type="text" id="searchBox" placeholder="Nhập từ khóa để giải cứu em cún..." oninput="handleInput()">
+<input type="text" id="searchBox" placeholder="Tôi yêu Ahn KeonHo..." oninput="handleInput()">
 <div id="suggestions"></div>
 
 <div id="answerCard">
-<div class="ans-title">ĐÁP ÁN:</div>
+<div class="ans-title">NỔ RỒI CÁC CHÁU ƠI:</div>
 <div id="finalAnswer" class="ans-content"></div>
 </div>
 </div>
@@ -61,7 +61,53 @@ const data = [
 { q: "Thành phần nào sau đây không có trong thẻ hiển thị ảnh của html?", a: "D. size" },
 { q: "Thuộc tính nào dùng để hiển thị các nút điều khiển start, stop, âm lượng?", a: "B. controls" },
 { q: "Thuộc tính nào sau đây không có trong thẻ hiển thị videos?", a: "C. source" },
-{ q: "Thuộc tính nào sau đây không có trong thẻ hiển thị âm thanh?", a: "B. width, height" }
+{ q: "Thuộc tính nào sau đây không có trong thẻ hiển thị âm thanh?", a: "B. width, height" },
+{ q: "Cú pháp html nào sau đây là đúng để hiển thị một hình ảnh biểu tượng trên trình duyệt?", a: "ảnh 2" },
+{ q: "Cú pháp HTML nào sau đây là đúng để hiển thị một video trên trình duyệt?", a: "ảnh 3" },
+{ q: "Cho một cú pháp html như sau: <audio src = “hnue/fit.mp3”>Cú pháp trên dùng để hiển thị thông tin gì trên trình duyệt?", a: "D. Âm thanh" },
+{ q: "Khi muốn chèn nội dung được lưu ở tệp tin mvABC.mp4 vào trang web, thẻ html nào sau đây cần được sử dụng?", a: "A. <video>" },
+{ q: "Khi muốn chèn một bài hát được lưu ở tệp tin baihat.mp3 vào trang web, thẻ html nào sau đây cần được sử dụng?", a: "B. <audio>" },
+{ q: "Phương án nào sau đây nêu đúng mục đích sử dụng khung nội tuyến (iframe) trong html?", a: "D. Chỉ được sử dụng để hiển thị hình ảnh hoặc video." },
+{ q: "Thuộc tính nào của thẻ <img> là bắt buộc?", a: "A. src" },
+{ q: "Thuộc tính alt của thẻ <img> được dùng để làm gì?", a: "B. Cung cấp văn bản thay thế khi việc hiển thị ảnh bị lỗi." },
+{ q: "Phát biểu nào sau đây đúng?", a: "C. Khi chèn hình ảnh vào trang web, ta cần quan tâm tới dung lượng của tệp hình ảnh." },
+{ q: "Để trình duyệt chạy video ngay khi hiển thị, em cần sử dụng thuộc tính nào cho thẻ <video>?", a: "A. autoplay" },
+{ q: "Để tạo một ô chọn danh sách thả xuống trong biểu mẫu, em sử dụng câu lệnh nào dưới đây?", a: "C. <select>" },
+{ q: "Thuộc tính nào được sử dụng để xác định một phần tử <input> là bắt buộc phải điền thông tin?", a: "A. requied" },
+{ q: "Thuộc tính nào xác định giá trị mặc định cho một phần tử <input> và được hiển thị sẵn khi tải biểu mẫu?", a: "C. value" },
+{ q: "Thuộc tính width và height của phần tử <input> chỉ có tác dụng khi thuộc tính type là:", a: "D. image" },
+{ q: "Để tạo các biểu mẫu trong trang web, cần sử dụng thẻ nào dưới đây?", a: "C. form" },
+{ q: "Phương án nào dưới đây nêu đúng nhất các thành phần của biểu mẫu?", a: "B. label, input, textarea, checkbox." },
+{ q: "Khi tạo biểu mẫu trong trang web, thẻ nào sau đây dùng để hiển thị vùng nhập dữ liệu văn bản gồm nhiều dòng?", a: "C. <textarea>" },
+{ q: "Kiểu phần tử nào sau đây của thẻ <input> cho phép tạo ra các nút tròn, chỉ cho lựa chọn một phương án duy nhất?", a: "B. radio (bố cũng đéo hiểu tại s lại radio?)" },
+{ q: "Kiểu phẩn tử nào sau đây của thẻ <input> cho phép tạo ra hộp kiểm, cho phép lựa chọn nhiều phương án?", a: "C. checkbox" },
+{ q: "Messi", a: "ảnh" },
+{ q: "Ngôn ngữ lập trình, Java,...", a: "ảnh" },
+{ q: "Biểu mẫu web đầy đủ gồm mấy thành phần?", a: "A. 2" },
+{ q: "Phát biểu nào sau đây sai?", a: "C. Biểu mẫu hiển thị trên web và script xử lí dữ liệu đều thuộc phạm vi ngôn ngữ HTML." },
+{ q: "Em sử dụng cặp thẻ HTML nào để tạo biểu mẫu?", a: "B. <form></form>." },
+{ q: "Phần tử fieldset của biểu mẫu được dùng để làm gì?", a: "A. Nhóm các phần tử có liên quan trong biểu mẫu." },
+{ q: "Các mẫu định dạng CSS được đặt trong cặp thẻ nào của tệp HTML?", a: "B. <style></style>." },
+{ q: "Phương án nào sau đây không phải là một cách thiết lập CSS?", a: "A. CSS ngoại tuyến" },
+{ q: "Cấu trúc tổng quát của mỗi mẫu định dạng CSS có mấy phần?", a: "A. 2" },
+{ q: "Vùng mô tả (declaration block) của một mẫu định dạng CSS có dạng như thế nào?", a: "C. {thuộc tính: giá trị;}." },
+{ q: "Phát biểu nào sau đây đúng?", a: "C. CSS được dùng để thiết lập các mẫu định dạng dùng trong trang web." },
+{ q: "Phát biểu nào sau đây sai?", a: "B. Các mẫu định dạng của CSS có thể được viết trong phần body của trang HTML." },
+{ q: "Mẫu CSS căn lề giữa cho tất cả các thẻ h1 là", a: "D. h1 {text-align: center;}." },
+{ q: "Mẫu CSS gồm hai quy định, chữ màu nâu và cỡ chữ 12 cho tất cả các thẻ p là", a: "C. p {color: brown; font-size: 12px;}." },
+{ q: "Mẫu CSS dùng để định dạng chữ in nghiêng cho tất cả các thẻ q là", a: "C. q {font-family: italics;}." },
+{ q: "Mẫu CSS dùng để định dạng chữ đậm cho đồng thời các thẻ h1, h2, h3 là", a: "D. h1, h2, h3 {font-weight: bold;}." },
+{ q: "phông chữ nào?", a: "A. Monospace." },
+{ q: "Phương án nào sau đây là đơn vị đo tương đối?", a: "C. ex" },
+{ q: "Thuộc tính font-weight không nhận giá trị nào sau đây?", a: "D. 1000" },
+{ q: "Phát biểu nào sau đây sai?", a: "B. CSS mặc định coi chiều cao dòng văn bản = 2px." },
+{ q: "p {line-align: justify} nghĩa là gì?", a: "C. Căn lề đều hai bên cho đoạn văn bản." },
+{ q: "Phát biểu nào sau đây sai?", a: "D. Mức độ ưu tiên của * là cao nhất." },
+{ q: "Để thiết lập kiểu chữ nghiêng của văn bản, em sử dụng thuộc tính CSS nào?", a: "C. font-style" },
+{ q: "Mẫu CSS thiết lập cho toàn bộ các phần tử p có cỡ chữ bằng 2 lần cỡ chữ của phần tử gốc HTML của tệp HTML là", a: "B. p {font-size: 2rem;}." },
+{ q: "Mẫu CSS thiết lập chiều cao dòng văn bản bằng 1,5 lần chiều cao dòng hiện thời là", a: "A. p {line-height: 1.5em;}." },
+{ q: "Mẫu CSS định dạng dòng đầu tiên của đoạn văn bản thụt vào bằng 3 kí tự là", a: "C. p {text-indent: 3em;}." },
+{ q: "Mẫu CSS định dạng kẻ giữa dòng chữ (unnecessary) là", a: "D. p {text-decoration: line-through;}." }
 ];
 
 const searchBox = document.getElementById('searchBox');
