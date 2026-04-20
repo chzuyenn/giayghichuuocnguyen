@@ -9,8 +9,8 @@
 body {
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 padding: 20px;
-background-color: #fff5f7; /* Màu nền hồng cực nhạt */
-background-image: url('https://i.pinimg.com/736x/b9/8c/43/b98c4398929a5fac29263680e11a6cc2.jpg'); /* Họa tiết vintage nhẹ */
+background-color: #fff5f7;
+background-image: url('https://i.pinimg.com/736x/b9/8c/43/b98c4398929a5fac29263680e11a6cc2.jpg');
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -23,45 +23,48 @@ max-width: 550px;
 background: rgba(255, 255, 255, 0.9);
 padding: 30px;
 border-radius: 30px;
-box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3); /* Đổ bóng màu hồng nhạt */
+box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
 border: 2px solid #ffc0cb;
 }
 
-/* Tiêu đề kiểu Noble */
+/* Tiêu đề kiểu Noble & Lấp lánh */
 h2 {
-color: #d4a5a5;
 text-align: center;
 font-family: 'Georgia', serif;
 font-style: italic;
 font-size: 28px;
 letter-spacing: 1px;
 margin-bottom: 25px;
-backround: linear-gradient(45deg, #d4a5a5 20%, #ffc0cb 40%, #fff 80%, #d4a5a5 100%
-) ;
-  background-size: 200% auto; 
-  color: transparent;
-  -webkit-background-clip: text;
-  animation: sparkle 3s linear infinite;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  @keyframes sparkle {
-    to { background-position: 200% center; }
-text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+background: linear-gradient(45deg, #d4a5a5 20%, #ffc0cb 40%, #fff 80%, #d4a5a5 100%);
+background-size: 200% auto;
+color: transparent;
+-webkit-background-clip: text;
+background-clip: text;
+animation: sparkle 3s linear infinite;
+text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
-  .avatar-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  .avatar {
-    width: 40px;
-    height: 40px
-      border-radius: 50%;
-    border: 3px solid #ffc0cb
-      box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
-    object-fit: cover;
-    background-color: #fff;
-  }
-/* Ô tìm kiếm bo tròn, thắt nơ nhẹ nhàng */
+
+@keyframes sparkle {
+to { background-position: 200% center; }
+}
+
+.avatar-container {
+display: flex;
+justify-content: center;
+margin-bottom: 20px;
+}
+
+.avatar {
+width: 80px; /* Anh tăng size lên tí cho xinh */
+height: 80px;
+border-radius: 50%;
+border: 3px solid #ffc0cb;
+box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+object-fit: cover;
+background-color: #fff;
+}
+
+/* Ô tìm kiếm bo tròn */
 #searchBox {
 width: 100%;
 padding: 15px 25px;
@@ -80,7 +83,6 @@ border-color: #d4a5a5;
 box-shadow: 0 0 10px rgba(212, 165, 165, 0.2);
 }
 
-/* Danh sách gợi ý */
 #suggestions {
 background: white;
 border: 1px solid #ffc0cb;
@@ -99,11 +101,8 @@ color: #a67c7c;
 font-size: 14px;
 }
 
-.suggestion-item:hover {
-background: #fff0f3;
-}
+.suggestion-item:hover { background: #fff0f3; }
 
-/* Khung hiển thị đáp án xịn xò */
 #answerCard {
 margin-top: 25px;
 padding: 25px;
@@ -115,7 +114,6 @@ border: 1px solid #ffc0cb;
 position: relative;
 }
 
-/* Thêm biểu tượng trang trí (giống cái nơ hay vương miện) */
 #answerCard::before {
 content: '✿';
 position: absolute;
@@ -137,11 +135,7 @@ border-bottom: 1px solid #eee;
 padding-bottom: 5px;
 }
 
-.ans-content {
-font-size: 17px;
-color: #555;
-line-height: 1.8;
-}
+.ans-content { font-size: 17px; color: #555; line-height: 1.8; }
 
 img {
 max-width: 100%;
@@ -157,9 +151,9 @@ box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 
 <div class="container">
 <h2>Giấy Ghi Chú Ước Nguyện</h2>
-  <div class="avatar-container">
-    <img src="https://i.pinimg.com/736x/ab/7e/31/ab7e31789b6336fd5a0fb08c7bc02ca2.jpg" alt="Avatar" class="avatar">
-  </div>
+<div class="avatar-container">
+<img src="https://i.pinimg.com/736x/ab/7e/31/ab7e31789b6336fd5a0fb08c7bc02ca2.jpg" alt="Avatar" class="avatar">
+</div>
 <input type="text" id="searchBox" placeholder="Tôi yêu Ahn KeonHo..." oninput="handleInput()">
 <div id="suggestions"></div>
 
@@ -202,7 +196,7 @@ const data = [
 { q: "Thuộc tính nào sau đây không có trong thẻ hiển thị âm thanh?", a: "B. width, height" },
 { q: "Cú pháp html nào sau đây là đúng để hiển thị một hình ảnh biểu tượng trên trình duyệt?", a: "ảnh 2" },
 { q: "Cú pháp HTML nào sau đây là đúng để hiển thị một video trên trình duyệt?", a: "ảnh 3" },
-{ q: "Cho một cú pháp html như sau: <audio src = “hnue/fit.mp3”>Cú pháp trên dùng để hiển thị thông tin gì trên trình duyệt?", a: "D. Âm thanh" },
+{ q: "Cho một cú pháp html như sau: <audio src = 'hnue/fit.mp3'>Cú pháp trên dùng để hiển thị thông tin gì trên trình duyệt?", a: "D. Âm thanh" },
 { q: "Khi muốn chèn nội dung được lưu ở tệp tin mvABC.mp4 vào trang web, thẻ html nào sau đây cần được sử dụng?", a: "A. <video>" },
 { q: "Khi muốn chèn một bài hát được lưu ở tệp tin baihat.mp3 vào trang web, thẻ html nào sau đây cần được sử dụng?", a: "B. <audio>" },
 { q: "Phương án nào sau đây nêu đúng mục đích sử dụng khung nội tuyến (iframe) trong html?", a: "D. Chỉ được sử dụng để hiển thị hình ảnh hoặc video." },
@@ -211,7 +205,7 @@ const data = [
 { q: "Phát biểu nào sau đây đúng?", a: "C. Khi chèn hình ảnh vào trang web, ta cần quan tâm tới dung lượng của tệp hình ảnh." },
 { q: "Để trình duyệt chạy video ngay khi hiển thị, em cần sử dụng thuộc tính nào cho thẻ <video>?", a: "A. autoplay" },
 { q: "Để tạo một ô chọn danh sách thả xuống trong biểu mẫu, em sử dụng câu lệnh nào dưới đây?", a: "C. <select>" },
-{ q: "Thuộc tính nào được sử dụng để xác định một phần tử <input> là bắt buộc phải điền thông tin?", a: "A. requied" },
+{ q: "Thuộc tính nào được sử dụng để xác định một phần tử <input> là bắt buộc phải điền thông tin?", a: "A. required" },
 { q: "Thuộc tính nào xác định giá trị mặc định cho một phần tử <input> và được hiển thị sẵn khi tải biểu mẫu?", a: "C. value" },
 { q: "Thuộc tính width và height của phần tử <input> chỉ có tác dụng khi thuộc tính type là:", a: "D. image" },
 { q: "Để tạo các biểu mẫu trong trang web, cần sử dụng thẻ nào dưới đây?", a: "C. form" },
@@ -288,7 +282,7 @@ suggestions.style.display = 'none';
 function showResult(ans) {
 suggestions.style.display = 'none';
 answerCard.style.display = 'block';
-finalAnswer.innerHTML = ans; // Dùng innerHTML để hiện được ảnh
+finalAnswer.innerHTML = ans;
 }
 </script>
 </body>
