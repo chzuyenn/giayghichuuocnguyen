@@ -5,17 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tao Mệt Lắm Rồi</title>
 <style>
-body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; }
-.container { width: 100%; max-width: 600px; }
-h2 { color: #1a73e8; text-align: center; }
-#searchBox { width: 100%; padding: 15px; border: 2px solid #1a73e8; border-radius: 25px; font-size: 16px; outline: none; box-sizing: border-box; }
-#suggestions { background: white; border: 1px solid #ddd; border-top: none; max-height: 250px; overflow-y: auto; display: none; border-radius: 0 0 15px 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.suggestion-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 14px; }
-.suggestion-item:hover { background: #f1f3f4; }
-#answerCard { margin-top: 20px; padding: 20px; background: #fff; border-left: 5px solid #27ae60; border-radius: 8px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
-.ans-title { font-weight: bold; color: #27ae60; margin-bottom: 10px; }
-.ans-content { font-size: 16px; color: #202124; line-height: 1.6; }
-img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; border: 1px solid #ddd; }
+/* Tổng thể trang web theo tone Hồng Coquette & Vintage */
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding: 20px;
+background-color: #fff5f7; /* Màu nền hồng cực nhạt */
+background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); /* Họa tiết vintage nhẹ */
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 100vh;
+}
+
+.container {
+width: 100%;
+max-width: 550px;
+background: rgba(255, 255, 255, 0.9);
+padding: 30px;
+border-radius: 30px;
+box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3); /* Đổ bóng màu hồng nhạt */
+border: 2px solid #ffc0cb;
+}
+
+/* Tiêu đề kiểu Noble */
+h2 {
+color: #d4a5a5;
+text-align: center;
+font-family: 'Georgia', serif;
+font-style: italic;
+font-size: 28px;
+letter-spacing: 1px;
+margin-bottom: 25px;
+text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Ô tìm kiếm bo tròn, thắt nơ nhẹ nhàng */
+#searchBox {
+width: 100%;
+padding: 15px 25px;
+border: 2px solid #ffc0cb;
+border-radius: 50px;
+font-size: 16px;
+outline: none;
+box-sizing: border-box;
+transition: 0.3s;
+color: #888;
+background: #fff;
+}
+
+#searchBox:focus {
+border-color: #d4a5a5;
+box-shadow: 0 0 10px rgba(212, 165, 165, 0.2);
+}
+
+/* Danh sách gợi ý */
+#suggestions {
+background: white;
+border: 1px solid #ffc0cb;
+border-top: none;
+max-height: 200px;
+overflow-y: auto;
+display: none;
+border-radius: 0 0 20px 20px;
+}
+
+.suggestion-item {
+padding: 15px;
+cursor: pointer;
+border-bottom: 1px solid #fff0f3;
+color: #a67c7c;
+font-size: 14px;
+}
+
+.suggestion-item:hover {
+background: #fff0f3;
+}
+
+/* Khung hiển thị đáp án xịn xò */
+#answerCard {
+margin-top: 25px;
+padding: 25px;
+background: #fff;
+border-radius: 20px;
+display: none;
+box-shadow: inset 0 0 15px rgba(255, 192, 203, 0.1);
+border: 1px solid #ffc0cb;
+position: relative;
+}
+
+/* Thêm biểu tượng trang trí (giống cái nơ hay vương miện) */
+#answerCard::before {
+content: '✿';
+position: absolute;
+top: -15px;
+left: 50%;
+transform: translateX(-50%);
+background: #fff5f7;
+color: #ffc0cb;
+padding: 0 10px;
+font-size: 20px;
+}
+
+.ans-title {
+font-weight: bold;
+color: #d4a5a5;
+margin-bottom: 15px;
+font-family: 'Georgia', serif;
+border-bottom: 1px solid #eee;
+padding-bottom: 5px;
+}
+
+.ans-content {
+font-size: 17px;
+color: #555;
+line-height: 1.8;
+}
+
+img {
+max-width: 100%;
+height: auto;
+border-radius: 15px;
+margin-top: 15px;
+border: 3px solid #fff;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 <body>
