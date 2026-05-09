@@ -3,213 +3,359 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tao Mệt Lắm Rồi</title>
+<title>LOVELIST - Lovers Gallery</title>
 <style>
-/* Tổng thể trang web theo tone Hồng Coquette & Vintage */
-body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-padding: 20px;
-background-color: #fff5f7;
-background-image: url('https://i.pinimg.com/736x/1e/9e/c5/1e9ec5b51f5088b773f568969c5089f5.jpg');
-display: flex;
-flex-direction: column;
-align-items: center;
-min-height: 100vh;
-}
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;700&display=swap');
 
-.container {
-width: 100%;
-max-width: 550px;
-background: rgba(255, 255, 255, 0.9);
-padding: 30px;
-border-radius: 30px;
-box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
-border: 2px solid #ffc0cb;
-}
+    :root {
+        --bg-gray: #e0e0e0;
+        --accent-black: #1a1a1a;
+        --text-gray: #666;
+    }
 
-/* Tiêu đề kiểu Noble & Lấp lánh */
-h2 {
-text-align: center;
-font-family: 'Georgia', serif;
-font-style: italic;
-font-size: 28px;
-letter-spacing: 1px;
-margin-bottom: 25px;
-background: linear-gradient(45deg, #d4a5a5 20%, #ffc0cb 40%, #fff 80%, #d4a5a5 100%);
-background-size: 200% auto;
-color: transparent;
--webkit-background-clip: text;
-background-clip: text;
-animation: sparkle 3s linear infinite;
-text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
+    * { box-sizing: border-box; cursor: url('https://cdn.custom-cursor.com/db/cursor/32/Retro_Aesthetics_Strawberry_Cursor.png'), auto; }
 
-@keyframes sparkle {
-to { background-position: 200% center; }
-}
+    body {
+        margin: 0;
+        background-color: #000;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
 
-.avatar-container {
-display: flex;
-justify-content: center;
-margin-bottom: 20px;
-}
+    .main-player-card {
+        width: 900px;
+        height: 600px;
+        background-color: var(--bg-gray);
+        border-radius: 20px;
+        position: relative;
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        padding: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
 
-.avatar {
-width: 80px; /* Anh tăng size lên tí cho xinh */
-height: 80px;
-border-radius: 50%;
-border: 3px solid #ffc0cb;
-box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
-object-fit: cover;
-background-color: #fff;
-}
+    /* 1. LOVELIST MARQUEE (CHỮ CHẠY) */
+    .marquee-container {
+        grid-column: 2;
+        overflow: hidden;
+        white-space: nowrap;
+        background: #d0d0d0;
+        border-radius: 10px;
+        padding: 5px 0;
+        margin-bottom: 20px;
+        border: 1px solid #bbb;
+    }
 
-/* Ô tìm kiếm bo tròn */
-#searchBox {
-width: 100%;
-padding: 15px 25px;
-border: 2px solid #ffc0cb;
-border-radius: 50px;
-font-size: 16px;
-outline: none;
-box-sizing: border-box;
-transition: 0.3s;
-color: #888;
-background: #fff;
-}
+    .marquee-content {
+        display: inline-block;
+        animation: marquee 15s linear infinite;
+        font-family: 'VT323', monospace;
+        font-size: 24px;
+        letter-spacing: 50px; /* Cách xa nhau như yêu cầu */
+        color: var(--accent-black);
+        text-transform: uppercase;
+    }
 
-#searchBox:focus {
-border-color: #d4a5a5;
-box-shadow: 0 0 10px rgba(212, 165, 165, 0.2);
-}
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
 
-#suggestions {
-background: white;
-border: 1px solid #ffc0cb;
-border-top: none;
-max-height: 200px;
-overflow-y: auto;
-display: none;
-border-radius: 0 0 20px 20px;
-}
+    /* 2. SIDEBAR (CHỈ GIỮ NGÔI NHÀ) */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        border-right: 1px solid #ccc;
+    }
+    .home-icon { font-size: 24px; color: #333; margin-bottom: 30px; text-decoration: none; }
 
-.suggestion-item {
-padding: 15px;
-cursor: pointer;
-border-bottom: 1px solid #fff0f3;
-color: #a67c7c;
-font-size: 14px;
-}
+    /* 3. LAYOUT CHÍNH */
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 30px;
+        padding: 0 20px;
+    }
 
-.suggestion-item:hover { background: #fff0f3; }
+    /* MÁY NGHE NHẠC IPOD */
+    .ipod-container {
+        background: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        text-align: center;
+    }
 
-#answerCard {
-margin-top: 25px;
-padding: 25px;
-background: #fff;
-border-radius: 20px;
-display: none;
-box-shadow: inset 0 0 15px rgba(255, 192, 203, 0.1);
-border: 1px solid #ffc0cb;
-position: relative;
-}
+    .ipod-shell {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
 
-#answerCard::before {
-content: '✿';
-position: absolute;
-top: -15px;
-left: 50%;
-transform: translateX(-50%);
-background: #fff5f7;
-color: #ffc0cb;
-padding: 0 10px;
-font-size: 20px;
-}
+    .ipod-bg { width: 100%; display: block; }
 
-.ans-title {
-font-weight: bold;
-color: #d4a5a5;
-margin-bottom: 15px;
-font-family: 'Georgia', serif;
-border-bottom: 1px solid #eee;
-padding-bottom: 5px;
-}
+    .ipod-screen {
+        position: absolute;
+        top: 15.5%;
+        left: 8.5%;
+        width: 48%;
+        height: 52%;
+        background: #000;
+        overflow: hidden;
+        border-radius: 2px;
+    }
 
-.ans-content { font-size: 17px; color: #555; line-height: 1.8; }
+    .ipod-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.5s;
+    }
 
-img {
-max-width: 100%;
-height: auto;
-border-radius: 15px;
-margin-top: 15px;
-border: 3px solid #fff;
-box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+    /* ĐIỀU KHIỂN NHẠC */
+    .music-info { margin-top: 15px; font-family: 'VT323', monospace; }
+    .song-title { font-size: 28px; margin: 0; }
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 15px;
+    }
+    .btn-ctrl { background: none; border: none; font-size: 24px; color: #333; }
+    .play-pause { font-size: 40px; }
+
+    /* 4. LOVERS GALLERY */
+    .gallery-section h2 { font-family: 'VT323', monospace; font-size: 32px; margin-top: 0; }
+
+    .categories-nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .cat-btn {
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+    .cat-btn.active { background: #000; color: #fff; }
+
+    .character-slider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .char-card {
+        width: 140px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        color: inherit;
+        display: none; /* Sẽ hiện bằng JS */
+    }
+    .char-card img { width: 100%; height: 180px; object-fit: cover; }
+    .char-info { padding: 8px; font-size: 12px; font-weight: bold; text-align: center; }
+
+    /* 5. FAVORITE PLAYLIST (DANH SÁCH NHẠC) */
+    .playlist-scroll {
+        margin-top: 20px;
+        height: 150px;
+        overflow-y: auto;
+        background: rgba(255,255,255,0.5);
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .playlist-item {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .playlist-item:hover { background: #fff; }
+    .playlist-item.active { border-left: 4px solid #000; font-weight: bold; }
+
 </style>
 </head>
 <body>
 
-<div class="container">
-<h2>Giấy Ghi Chú Ước Nguyện</h2>
-<div class="avatar-container">
-<img src="https://i.pinimg.com/736x/ab/7e/31/ab7e31789b6336fd5a0fb08c7bc02ca2.jpg" alt="Avatar" class="avatar">
-</div>
-<input type="text" id="searchBox" placeholder="Tôi yêu Ahn KeonHo..." oninput="handleInput()">
-<div id="suggestions"></div>
+<div class="main-player-card">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <a href="#" class="home-icon">🏠</a>
+    </div>
 
-<div id="answerCard">
-<div class="ans-title">TỤI CON</div>
-<div id="finalAnswer" class="ans-content"></div>
+    <div class="main-body">
+        <!-- CHỮ CHẠY LOVELIST -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                L O V E L I S T L O V E L I S T L O V E L I S T L O V E L I S T
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- PHẦN MÁY NGHE NHẠC IPOD -->
+            <div class="ipod-container">
+                <div class="ipod-shell">
+                    <!-- THAY LINK ẢNH IPOD EM GỬI VÀO ĐÂY -->
+                    <img src="music.jpg" class="ipod-bg" alt="iPod">
+                    <div class="ipod-screen">
+                        <img id="song-art" src="https://via.placeholder.com/150" alt="Art">
+                    </div>
+                </div>
+
+                <div class="music-info">
+                    <h3 id="display-title" class="song-title">Loading...</h3>
+                    <p id="display-artist">Artist Name</p>
+                    <div class="controls">
+                        <button class="btn-ctrl" onclick="prevSong()">⏮</button>
+                        <button class="btn-ctrl play-pause" id="play-btn" onclick="togglePlay()">▶</button>
+                        <button class="btn-ctrl" onclick="nextSong()">⏭</button>
+                    </div>
+                </div>
+
+                <div class="playlist-scroll" id="playlist">
+                    <!-- Danh sách bài hát tự động load ở đây -->
+                </div>
+            </div>
+
+            <!-- PHẦN GALLERY NHÂN VẬT -->
+            <div class="gallery-section">
+                <h2>Lovers Gallery</h2>
+                
+                <div class="categories-nav">
+                    <button class="btn-ctrl" onclick="scrollCat(-1)">◀</button>
+                    <div id="cat-list" style="display:flex; gap:5px;">
+                        <button class="cat-btn active" onclick="filterChar('đương thời', this)">đương thời</button>
+                        <button class="cat-btn" onclick="filterChar('ngành', this)">ngành</button>
+                        <button class="cat-btn" onclick="filterChar('tổng tài', this)">tổng tài</button>
+                    </div>
+                    <button class="btn-ctrl" onclick="scrollCat(1)">▶</button>
+                </div>
+
+                <div class="character-slider">
+                    <button class="btn-ctrl">◀</button>
+                    <div id="char-display" style="display:flex; gap:15px;">
+                        <!-- Character Cards -->
+                        <a href="LINK_VỚI_VIỄN_THẦN" class="char-card" data-type="đương thời">
+                            <img src="https://via.placeholder.com/140x180?text=Vien+Than" alt="Vienthan">
+                            <div class="char-info">Viễn Thần</div>
+                        </a>
+                        <a href="LINK_VỚI_CỐ_TỬ_VŨ" class="char-card" data-type="ngành">
+                            <img src="https://via.placeholder.com/140x180?text=Co+Tu+Vu" alt="Cotuvu">
+                            <div class="char-info">Cố Tử Vũ</div>
+                        </a>
+                    </div>
+                    <button class="btn-ctrl">▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+
+<!-- Audio hidden -->
+<audio id="main-audio" autoplay loop></audio>
 
 <script>
-const data = [
-{ q: "Cô Huyền ơiii", a: "iu cô rất nhìuuuuuuuuuuuuuu" },
-];
+    // DỮ LIỆU NHẠC CỦA DUYÊN
+    const songs = [
+        { title: "Song 1", artist: "Artist A", src: "LINK_FILE_NHAC_1", art: "https://via.placeholder.com/150/ff9999" },
+        { title: "Song 2", artist: "Artist B", src: "LINK_FILE_NHAC_2", art: "https://via.placeholder.com/150/99ff99" },
+        { title: "Song 3", artist: "Artist C", src: "LINK_FILE_NHAC_3", art: "https://via.placeholder.com/150/9999ff" }
+    ];
 
-const searchBox = document.getElementById('searchBox');
-const suggestions = document.getElementById('suggestions');
-const answerCard = document.getElementById('answerCard');
-const finalAnswer = document.getElementById('finalAnswer');
+    let currentIdx = 0;
+    const audio = document.getElementById('main-audio');
+    const playBtn = document.getElementById('play-btn');
 
-function handleInput() {
-const val = searchBox.value.toLowerCase().trim();
-suggestions.innerHTML = '';
-answerCard.style.display = 'none';
+    function initPlayer() {
+        // Load playlist
+        const pl = document.getElementById('playlist');
+        songs.forEach((s, i) => {
+            let div = document.createElement('div');
+            div.className = 'playlist-item';
+            div.innerHTML = `<span>${i+1}. ${s.title}</span>`;
+            div.onclick = () => loadSong(i);
+            pl.appendChild(div);
+        });
+        loadSong(0);
+    }
 
-if (val === '') {
-suggestions.style.display = 'none';
-return;
-}
+    function loadSong(idx) {
+        currentIdx = idx;
+        const s = songs[idx];
+        audio.src = s.src;
+        document.getElementById('song-art').src = s.art;
+        document.getElementById('display-title').innerText = s.title;
+        document.getElementById('display-artist').innerText = s.artist;
+        
+        // Highlight active song
+        document.querySelectorAll('.playlist-item').forEach((item, i) => {
+            item.classList.toggle('active', i === idx);
+        });
+        
+        audio.play();
+        playBtn.innerText = '⏸';
+    }
 
-const matches = data.filter(item => item.q.toLowerCase().includes(val));
+    function togglePlay() {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = '⏸';
+        } else {
+            audio.pause();
+            playBtn.innerText = '▶';
+        }
+    }
 
-if (matches.length > 0) {
-suggestions.style.display = 'block';
-matches.forEach(item => {
-const div = document.createElement('div');
-div.className = 'suggestion-item';
-div.innerText = item.q;
-div.onclick = () => {
-searchBox.value = item.q;
-showResult(item.a);
-};
-suggestions.appendChild(div);
-if (val === item.q.toLowerCase()) {
-showResult(item.a);
-}
-});
-} else {
-suggestions.style.display = 'none';
-}
-}
+    function nextSong() {
+        currentIdx = (currentIdx + 1) % songs.length;
+        loadSong(currentIdx);
+    }
 
-function showResult(ans) {
-suggestions.style.display = 'none';
-answerCard.style.display = 'block';
-finalAnswer.innerHTML = ans;
-}
+    function prevSong() {
+        currentIdx = (currentIdx - 1 + songs.length) % songs.length;
+        loadSong(currentIdx);
+    }
+
+    // GALLERY FILTER
+    function filterChar(type, btn) {
+        // Active button style
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter cards
+        document.querySelectorAll('.char-card').forEach(card => {
+            if (card.dataset.type === type) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Khởi tạo mặc định
+    window.onload = () => {
+        initPlayer();
+        filterChar('đương thời', document.querySelector('.cat-btn'));
+    };
 </script>
+
 </body>
 </html>
