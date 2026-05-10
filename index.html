@@ -1,315 +1,318 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOVELIST - Gallery</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;700&display=swap');
+<meta charset="UTF-8">
+<title>LoveList</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    /* Ví dụ thay đổi con trỏ chuột: */
+    /* cursor: url('cursor-custom.png'), pointer; */
+}
 
-        :root {
-            --bg-gray: #e0e0e0;
-            --accent-black: #1a1a1a;
-            --white: #ffffff;
-        }
+.container {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+        "sidebar top"
+        "sidebar main";
+}
 
-        /* Reset & Cursor */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; padding: 0;
-            cursor: url('https://cdn.custom-cursor.com/db/cursor/32/Retro_Aesthetics_Strawberry_Cursor.png'), auto; 
-        }
+.top-bar {
+    grid-area: top;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+}
 
-        body {
-            background-color: #000;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+.top-bar .logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
 
-        /* Khung chính của trang */
-        .main-player-card {
-            width: 950px;
-            height: 650px;
-            background-color: var(--bg-gray);
-            border-radius: 20px;
-            display: flex;
-            padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid #999;
-        }
+.top-bar input {
+    flex: 1;
+    margin: 0 20px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
 
-        /* Sidebar bên trái (Chỉ giữ ngôi nhà) */
-        .sidebar {
-            width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid #ccc;
-        }
-        .home-icon { font-size: 28px; margin-top: 10px; text-decoration: none; color: #333; }
+.top-icons .icon {
+    margin-left: 15px;
+    cursor: pointer;
+}
 
-        /* Vùng nội dung chính */
-        .main-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding-left: 20px;
-        }
+.sidebar {
+    grid-area: sidebar;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
 
-        /* LOVELIST Marquee (Chữ chạy) */
-        .marquee-container {
-            width: 100%;
-            height: 50px;
-            overflow: hidden;
-            background: #d0d0d0;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            border: 1px solid #bbb;
-            margin-bottom: 20px;
-        }
+.sidebar .icon-home {
+    font-size: 24px;
+    text-decoration: none;
+    color: #000;
+}
 
-        .marquee-content {
-            white-space: nowrap;
-            display: inline-block;
-            animation: marquee 18s linear infinite;
-            font-family: 'VT323', monospace;
-            font-size: 26px;
-            letter-spacing: 50px; /* Chữ cách xa nhau theo yêu cầu */
-            color: var(--accent-black);
-            text-transform: uppercase;
-        }
+.content {
+    grid-area: main;
+    padding: 20px;
+    display: flex;
+}
 
-        @keyframes marquee {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
+.player, .gallery {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+}
 
-        /* Grid chia 2 phần: iPod và Gallery */
-        .content-grid {
-            display: flex;
-            gap: 30px;
-            flex: 1;
-        }
+.player {
+    flex: 1;
+    margin-right: 20px;
+}
 
-        .left-panel { flex: 1.2; display: flex; flex-direction: column; }
-        .right-panel { flex: 1; display: flex; flex-direction: column; }
+.player-image {
+    position: relative;
+    margin-bottom: 20px;
+}
 
-        /* Máy nghe nhạc iPod */
-        .ipod-container {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            text-align: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
+.player-image img {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+}
 
-        .ipod-shell {
-            position: relative;
-            width: 280px;
-            margin: 0 auto;
-        }
+.player-image .screen {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 120px;
+    height: 80px;
+    background: #000;
+}
 
-        /* Ảnh máy iPod em gửi */
-        .ipod-bg { width: 100%; height: auto; display: block; }
+.track-info {
+    margin-bottom: 10px;
+}
 
-        /* Màn hình iPod lồng vào ảnh */
-        .ipod-screen {
-            position: absolute;
-            top: 15.2%; /* Căn chỉnh lại cho vừa màn hình trắng */
-            left: 8.5%;
-            width: 48%;
-            height: 52%;
-            background: #000;
-            overflow: hidden;
-        }
+.track-info .track-title {
+    font-size: 18px;
+    font-weight: bold;
+}
 
-        .ipod-screen img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+.track-info .track-album {
+    font-size: 14px;
+    color: #555;
+}
 
-        /* Thông tin & Nút bấm nhạc */
-        .music-info { margin-top: 15px; font-family: 'VT323', monospace; }
-        .song-title { font-size: 26px; margin-bottom: 5px; color: #111; }
-        .controls { display: flex; justify-content: center; gap: 20px; margin: 10px 0; }
-        .ctrl-btn { font-size: 24px; cursor: pointer; color: #333; }
+.track-actions .fav {
+    background: #000;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
 
-        /* Playlist cuộn */
-        .playlist-scroll {
-            margin-top: 15px;
-            height: 120px;
-            overflow-y: auto;
-            background: #f4f4f4;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-        .playlist-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-            text-align: left;
-            transition: 0.2s;
-        }
-        .playlist-item:hover { background: #fff; }
-        .playlist-item.active { background: #fff; border-left: 5px solid #000; font-weight: bold; }
+.controls span {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
 
-        /* Gallery Nhân vật */
-        .gallery-section h2 { font-family: 'VT323', monospace; font-size: 32px; margin-bottom: 15px; }
+.controls .play {
+    font-size: 24px;
+    padding: 5px;
+    border: 2px solid #000;
+    border-radius: 50%;
+}
 
-        .cat-nav { display: flex; gap: 8px; margin-bottom: 20px; }
-        .cat-btn {
-            background: #eee; border: 1px solid #ccc; padding: 6px 15px;
-            border-radius: 20px; font-size: 13px; font-weight: bold;
-        }
-        .cat-btn.active { background: #000; color: #fff; border-color: #000; }
+.gallery {
+    flex: 1;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
 
-        .char-list { display: flex; gap: 15px; flex-wrap: wrap; }
-        .char-card {
-            width: 140px; background: #fff; border-radius: 12px;
-            border: 1px solid #ddd; text-decoration: none; color: #000;
-            overflow: hidden; transition: 0.3s;
-        }
-        .char-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .char-card img { width: 100%; height: 180px; object-fit: cover; }
-        .char-info { padding: 10px; text-align: center; font-weight: bold; font-size: 14px; }
+.gallery h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
 
-    </style>
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.categories .category {
+    background: #eee;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.categories .active {
+    background: #ccc;
+}
+
+.persons {
+    display: flex;
+}
+
+.person {
+    margin-right: 10px;
+    text-align: center;
+}
+
+.person img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.person .name {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.favorite-playlists {
+    margin-top: 20px;
+}
+
+.favorite-playlists h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.playlist-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.playlist-info .playlist-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.playlist-info .playlist-count {
+    font-size: 12px;
+    color: #888;
+}
+
+.play-btn {
+    margin-left: auto;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
-
-<div class="main-player-card">
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <a href="#" class="home-icon">🏠</a>
+<div class="container">
+  <header class="top-bar">
+    <!-- Thanh trên cùng: logo và thanh tìm kiếm -->
+    <div class="logo">LoveList</div>
+    <input type="text" placeholder="Tìm bài hát, nghệ sĩ...">
+    <div class="top-icons">
+      <span class="icon">🔔</span>
+      <span class="icon">⚙</span>
     </div>
+  </header>
 
-    <div class="main-body">
-        <!-- CHỮ LOVELIST CHẠY -->
-        <div class="marquee-container">
-            <div class="marquee-content">
-                L O V E L I S T L O V E L I S T L O V E L I S T L O V E L I S T
-            </div>
+  <!-- Sidebar bên trái chỉ có icon Home -->
+  <aside class="sidebar">
+    <a href="#" class="icon-home">🏠</a>
+  </aside>
+
+  <!-- Nội dung chính -->
+  <main class="content">
+    <!-- Phần trình phát nhạc -->
+    <section class="player">
+      <div class="player-image">
+        <!-- Hình máy nghe nhạc (đĩa than) -->
+        <img src="music-removebg-preview.png" alt="Music Player">
+        <div class="screen"></div> <!-- Khu vực màn hình để chèn ảnh bìa bài -->
+      </div>
+      <div class="track-info">
+        <div class="track-title">The Suffering</div>
+        <div class="track-album">Bài hát yêu thích</div>
+        <div class="track-actions">
+          <span class="fav">+ 392</span>
         </div>
+      </div>
+      <div class="controls">
+        <span>&#9664;&#9664;</span>
+        <span class="play">&#9654;</span>
+        <span>&#9654;&#9654;</span>
+        <span class="shuffle">🔀</span>
+      </div>
+    </section>
 
-        <div class="content-grid">
-            <!-- PHẦN NHẠC (Bên trái) -->
-            <div class="left-panel">
-                <div class="ipod-container">
-                    <div class="ipod-shell">
-                        <!-- Tên file ảnh iPod của em -->
-                        <img src="music-removebg-preview.png" class="ipod-bg">
-                        <div class="ipod-screen">
-                            <img id="song-art" src="https://via.placeholder.com/150">
-                        </div>
-                    </div>
-                    
-                    <div class="music-info">
-                        <h3 id="display-title" class="song-title">Loading...</h3>
-                        <div class="controls">
-                            <span class="ctrl-btn" onclick="prevSong()">⏮</span>
-                            <span class="ctrl-btn" id="play-btn" onclick="togglePlay()" style="font-size: 32px;">▶</span>
-                            <span class="ctrl-btn" onclick="nextSong()">⏭</span>
-                        </div>
-                    </div>
-
-                    <div class="playlist-scroll" id="playlist">
-                        <!-- Nhạc load ở đây -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- PHẦN GALLERY (Bên phải) -->
-            <div class="right-panel">
-                <div class="gallery-section">
-                    <h2>Lovers Gallery</h2>
-                    <div class="cat-nav">
-                        <button class="cat-btn active" onclick="filterChar('đương thời', this)">đương thời</button>
-                        <button class="cat-btn" onclick="filterChar('ngành', this)">ngành</button>
-                        <button class="cat-btn" onclick="filterChar('tổng tài', this)">tổng tài</button>
-                    </div>
-                    
-                    <div class="char-list" id="char-display">
-                        <!-- Thêm bớt nhân vật ở đây, nhớ đổi data-type khớp với nút bấm -->
-                        <a href="LINK_VIEN_THAN" class="char-card" data-type="đương thời">
-                            <img src="https://via.placeholder.com/140x180?text=Vien+Than">
-                            <div class="char-info">Viễn Thần</div>
-                        </a>
-                        <a href="LINK_CO_TU_VU" class="char-card" data-type="ngành">
-                            <img src="https://via.placeholder.com/140x180?text=Co+Tu+Vu">
-                            <div class="char-info">Cố Tử Vũ</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <!-- Phần Lovers Gallery -->
+    <section class="gallery">
+      <h2>Lovers Gallery</h2>
+      <div class="categories">
+        <span class="category active">Đương Thời</span>
+        <span class="category">Thanh Xuân Vườn Trường</span>
+        <span class="category">Ngành</span>
+        <span class="category">Tổng Tài</span>
+        <span class="category">Cún Con</span>
+        <span class="category">Gay</span>
+      </div>
+      <div class="persons">
+        <!-- Danh sách nhân vật (nhấp ảnh để dẫn tới trang của họ) -->
+        <div class="person">
+          <img src="co-tu-vu.jpg" alt="Cố Tử Vũ">
+          <div class="name">Cố Tử Vũ</div>
         </div>
-    </div>
+        <div class="person">
+          <img src="vien-than.jpg" alt="Viễn Thần">
+          <div class="name">Viễn Thần</div>
+        </div>
+        <!-- Có thể thêm hình nhân vật khác tại đây -->
+      </div>
+      <div class="favorite-playlists">
+        <h3>Playlist yêu thích (4)</h3>
+        <div class="playlist-item">
+          <img src="profile1.jpg" alt="">
+          <div class="playlist-info">
+            <div class="playlist-title">Best of Eren</div>
+            <div class="playlist-count">32 bài</div>
+          </div>
+          <button class="play-btn">&#9654;</button>
+        </div>
+        <div class="playlist-item">
+          <img src="profile2.jpg" alt="">
+          <div class="playlist-info">
+            <div class="playlist-title">Best of Luffy</div>
+            <div class="playlist-count">28 bài</div>
+          </div>
+          <button class="play-btn">&#9654;</button>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
-
-<audio id="main-audio" autoplay loop></audio>
-
-<script>
-    // 1. DANH SÁCH NHẠC (Duyên thay link vào đây nhé)
-    const songs = [
-        { title: "Song 1", artist: "Artist A", src: "LINK_NHAC_1", art: "https://via.placeholder.com/150/ff9999" },
-        { title: "Song 2", artist: "Artist B", src: "LINK_NHAC_2", art: "https://via.placeholder.com/150/99ff99" },
-        { title: "Song 3", artist: "Artist C", src: "LINK_NHAC_3", art: "https://via.placeholder.com/150/9999ff" }
-    ];
-
-    let currentIdx = 0;
-    const audio = document.getElementById('main-audio');
-    const playBtn = document.getElementById('play-btn');
-
-    function initPlayer() {
-        const pl = document.getElementById('playlist');
-        songs.forEach((s, i) => {
-            let div = document.createElement('div');
-            div.className = 'playlist-item';
-            div.innerHTML = `<span>${i+1}. ${s.title}</span>`;
-            div.onclick = () => loadSong(i);
-            pl.appendChild(div);
-        });
-        loadSong(0);
-    }
-
-    function loadSong(idx) {
-        currentIdx = idx;
-        const s = songs[idx];
-        audio.src = s.src;
-        document.getElementById('song-art').src = s.art;
-        document.getElementById('display-title').innerText = s.title;
-        
-        document.querySelectorAll('.playlist-item').forEach((item, i) => {
-            item.classList.toggle('active', i === idx);
-        });
-        
-        audio.play().catch(() => { console.log("Cần click để phát"); });
-        playBtn.innerText = '⏸';
-    }
-
-    function togglePlay() {
-        if (audio.paused) { audio.play(); playBtn.innerText = '⏸'; } 
-        else { audio.pause(); playBtn.innerText = '▶'; }
-    }
-
-    function nextSong() { currentIdx = (currentIdx + 1) % songs.length; loadSong(currentIdx); }
-    function prevSong() { currentIdx = (currentIdx - 1 + songs.length) % songs.length; loadSong(currentIdx); }
-
-    // 2. LỌC NHÂN VẬT
-    function filterChar(type, btn) {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.char-card').forEach(card => {
-            card.style.display = (card.dataset.type === type) ? 'block' : 'none';
-        });
-    }
-
-    window.onload = () => {
-        initPlayer();
-        filterChar('đương thời', document.querySelector('.cat-btn'));
-    };
-</script>
-
 </body>
 </html>
